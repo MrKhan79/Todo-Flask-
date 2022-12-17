@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block body %}
+  
+    
+    <div class="container my-5">
+        <h1>Add a Todo</h1>
+      <form action='/' method="POST">
+        <div class="form-group">
+          <label for="title">Todo Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            aria-describedby="emailHelp"
+            placeholder="Add Title"
+          />
+          <!-- <small id="emailHelp" class="form-text text-muted"
+            >We'll never share your email with anyone else.</small
+          > -->
+        </div>
+        <div class="form-group">
+          <label for="desc">Todo Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="desc"
+            name="desc"
+            placeholder="Add Description"
+          />
+        </div>
+       
+        <button type="submit" class="btn btn-dark btn-primary" name="add">Submit</button>
+      </form>
+      
+    </div>
+    <div class="container my-5">
+        <h1>Your Todos</h1>
+        {% if allTodo|length==0 %}
+        <div class="alert alert-secondary" role="alert">
+         No Todos Found, Add Your First Todo Now!
+        </div>
+          
+        {% else %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">SNo.</th>
+                <th scope="col">Description</th>
+                <th scope="col">Title</th>
+                <th scope="col">Time</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+              {% for todo in allTodo %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{todo.title}}</td>
+                <td>{{todo.desc}}</td>
+                <td>{{todo.date_created}}</td>
+                <td>
+                  <a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-dark btn-sm mx-1">Update</a>
+                  <a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-dark btn-sm mx-1">Delete</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   
+{% endblock body %}
+ 
